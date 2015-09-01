@@ -1,0 +1,6 @@
+python-telegram-bot==2.1
+praw==3.2.1
+wikipedia==1.4.0
+requests==2.7.0
+futures==3.0.3
+wolframalpha==1.2
