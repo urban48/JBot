@@ -4,7 +4,9 @@ from abilities.jokes import Jokes
 from abilities.general import General
 from abilities.wolfram import Wolfram
 
-TELEGRAM_TOKEN = ""
+with open('conf/tokens.txt', 'r') as f:
+    token = f.read().split('=')
+TELEGRAM_TOKEN = token[1]
 
 SLEEP_BETWEEN_REQUESTS = 1  # seconds
 SLEEP_BETWEEN_UPDATES = 1  # seconds
