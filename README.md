@@ -47,7 +47,7 @@ after the bot address, a command should follow:
 
         yo j wiki robots
 
-the commands are registered throw each ability, see abilities dir for examples.
+the commands are registered through each ability, see abilities dir for examples.
 
 if the command is found JBot will run the method with which the command is registered to.
 
