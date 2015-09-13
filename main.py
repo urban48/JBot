@@ -74,7 +74,6 @@ def process_messages(bot):
 
 
 def main():
-    dictConfig(LOG_CONF)
     bot = telegram.Bot(token=cfg.TELEGRAM_TOKEN)
 
     # reset accumulated messages
@@ -88,6 +87,7 @@ def main():
 
 
 if __name__ == '__main__':
+    dictConfig(LOG_CONF)
     try:
         main()
     except Exception:

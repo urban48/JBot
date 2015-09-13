@@ -10,7 +10,7 @@ class Flow(AbilityBase):
 
     flow = {}
 
-    @command(co(['set flow'], 'Set the flow'),)
+    @command(co(['set flow', 'set the flow'], 'Set the flow'),)
     def set_flow(self, request, command=None):
 
         if not request:
@@ -21,7 +21,7 @@ class Flow(AbilityBase):
         Flow.flow[self.update.message.chat_id] = flow_obj
         self.reply('flow set to: {}'.format(request))
 
-    @command(co(['whats the flow', 'what\'s the flow'], 'Show the flow'),)
+    @command(co(['whats the flow', 'what\'s the flow', 'what is the flow'], 'Show the flow'),)
     def get_flow(self, request=None, command=None):
         flow_obj = Flow.flow.get(self.update.message.chat_id)
         if not flow_obj:
