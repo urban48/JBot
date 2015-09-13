@@ -20,6 +20,7 @@ praw
 wikipedia  
 requests  
 futures
+wolframalpha
 
 Basic setup and installation:
 -----------------------------
