@@ -1,12 +1,8 @@
-
 import requests
-import json
+
 from abilities.ability_base import AbilityBase
 from utils.decorators import command
 from utils.objects import CommandObj as co
-
-
-
 
 
 class Urbandictionary(AbilityBase):
@@ -23,7 +19,7 @@ class Urbandictionary(AbilityBase):
         return {}
 
     @command(co(['define'], 'Define words using Urbandictionary'),)
-    def get_wiki_page(self, request, command=None):
+    def define(self, request, command=None):
         res = self.api_call(request)
 
         if not res['result_type'] == 'exact':

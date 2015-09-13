@@ -13,7 +13,7 @@ class Wikipedia(AbilityBase):
         self.reply('give me a sec to find it')
         try:
             wiki_res = wikipedia.page(request)
-            self.reply('{} \n\n  Link: {}'.format(wiki_res.summary, wiki_res.url))
+            self.reply('{}... \n\n  Link: {}'.format(wiki_res.summary[:wiki_res.summary.find('\n', 500)], wiki_res.url))
         except wikipedia.PageError:
             self.reply("sorry {} couldn't find it".format(self.update.message.from_user.first_name))
         except wikipedia.DisambiguationError as e:
