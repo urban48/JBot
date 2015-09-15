@@ -9,7 +9,7 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 import telegram
 
 from conf.log_conf import LOG_CONF
-from conf import configuration as cfg
+from conf import configurations as cfg
 
 logger = logging.getLogger(__name__)
 

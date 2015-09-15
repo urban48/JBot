@@ -23,12 +23,17 @@ class Urbandictionary(AbilityBase):
         res = self.api_call(request)
 
         if not res['result_type'] == 'exact':
-            self.reply('Could not find definition to {}'.format(request))
+            self.reply('Could not find definition for {}'.format(request))
             return
 
         definition = res['list'][0]['definition']
         example = res['list'][0]['example']
+        if not example:
+            self.reply('{}'.format(definition))
+            return
+
         self.reply('{}\n\nExample:\n{}'.format(definition, example))
+
 
 
 

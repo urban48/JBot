@@ -16,4 +16,3 @@ SLEEP_BETWEEN_EXCEPTIONS = 600  # seconds
 
 BOT_ADDRESS_SET = {'^j ', '^yo j ', '^jj ', '^jb ', }
 abilities = (General, Wikipedia, Flow, Jokes, Wolfram, Urbandictionary)
-
