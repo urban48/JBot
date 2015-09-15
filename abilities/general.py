@@ -18,7 +18,7 @@ class General(AbilityBase):
 
         self.reply(msg)
 
-    @command(co(['who\'s your daddy'], 'Privilege check'))
+    @command(co(['who\'s your daddy', 'who\'s your mommy'], 'Privilege check'))
     def whos_your_daddy(self, request, command=None):
         if self.update.message.from_user.id in settings.ADMIN_IDS:
             self.reply('You are!')

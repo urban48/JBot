@@ -8,6 +8,7 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 
 import telegram
 
+from utils.chatter_bot_api import ChatterBotFactory
 from conf.log_conf import LOG_CONF
 from conf import configurations as cfg
 
@@ -48,6 +49,7 @@ def process_messages(bot):
                     comb += word + ' '
                     split_message.append(comb.strip().lower())
 
+                ability_executed = False
                 for ability in cfg.abilities:
                     ability_methods = ability.get_commands()
                     for method_name, commands in ability_methods.items():
@@ -61,20 +63,24 @@ def process_messages(bot):
                                 last_request = time()
                                 request = message.replace(cmd, '')
 
-                                logger.debug("executing ability: {}:{} with command {}:{}".format(ability.__name__, method_name, cmd, request))
+                                logger.debug("id: {} executing ability: {}:{} with command {}:{}".format(update.message.from_user.id, ability.__name__, method_name, cmd, request))
                                 run_method = getattr(ability(bot, update, cfg.abilities), method_name)
                                 executor.submit(run_method(request.lower(), cmd.lower()))
+                                ability_executed = True
                                 break
-
                         else:  # breaking from inner loop
                             continue
                         break
+                if not ability_executed:
+                    answer = bot.chatter.think(message)
+                    bot.sendMessage(chat_id=update.message.chat_id, text=answer)
 
             sleep(cfg.SLEEP_BETWEEN_UPDATES)
 
 
 def main():
     bot = telegram.Bot(token=cfg.TELEGRAM_TOKEN)
+    bot.chatter = ChatterBotFactory().create(type=1).create_session()
 
     # reset accumulated messages
     updates = bot.getUpdates()
