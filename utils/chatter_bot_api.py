@@ -1,3 +1,20 @@
+import re
+import sys
+import hashlib
+
+if sys.version_info >= (3, 0):
+    from urllib.request import build_opener, HTTPCookieProcessor, urlopen
+    from urllib.parse import urlencode
+    import http.cookiejar as cookielib
+
+else:
+    from urllib import urlencode, urlopen
+    from urllib2 import build_opener, HTTPCookieProcessor
+    import cookielib
+
+import uuid
+import xml.dom.minidom
+
 """
     chatterbotapi
     Copyright (C) 2011 pierredavidbelanger@gmail.com
@@ -15,18 +32,6 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
-#################################################
-# API
-#################################################
-
-
-import hashlib
-import urllib
-import urllib.request
-import http.cookiejar as cookielib
-import uuid
-import xml.dom.minidom
 
 #################################################
 # API
@@ -98,18 +103,18 @@ class _CleverbotSession(ChatterBotSession):
         self.vars['islearning'] = '1'
         self.vars['cleanslate'] = 'false'
         self.cookieJar = cookielib.CookieJar()
-        self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookieJar))
+        self.opener = build_opener(HTTPCookieProcessor(self.cookieJar))
         self.opener.open(self.bot.baseUrl)
 
     def think_thought(self, thought):
         self.vars['stimulus'] = thought.text
-        data = urllib.parse.urlencode(self.vars)
+        data = urlencode(self.vars)
         data_to_digest = data[9:self.bot.endIndex]
         data_digest = hashlib.md5(data_to_digest).hexdigest()
         data = data + '&icognocheck=' + data_digest
         url_response = self.opener.open(self.bot.serviceUrl, data)
         response = url_response.read()
-        response_values = response.split('\r')
+        response_values = re.split(r'\\r|\r', response)
         #self.vars['??'] = _utils_string_at_index(response_values, 0)
         self.vars['sessionid'] = _utils_string_at_index(response_values, 1)
         self.vars['logurl'] = _utils_string_at_index(response_values, 2)
@@ -159,8 +164,8 @@ class _PandorabotsSession(ChatterBotSession):
 
     def think_thought(self, thought):
         self.vars['input'] = thought.text
-        data = urllib.parse.urlencode(self.vars)
-        url_response = urllib.request.urlopen('http://www.pandorabots.com/pandora/talk-xml', data)
+        data = urlencode(self.vars)
+        url_response = urlopen('http://www.pandorabots.com/pandora/talk-xml', data)
         response = url_response.read()
         response_dom = xml.dom.minidom.parseString(response)
         response_thought = ChatterBotThought()
@@ -250,18 +255,18 @@ class _CleverbotSession(ChatterBotSession):
         self.vars['islearning'] = '1'
         self.vars['cleanslate'] = 'false'
         self.cookieJar = cookielib.CookieJar()
-        self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookieJar))
+        self.opener = build_opener(HTTPCookieProcessor(self.cookieJar))
         self.opener.open(self.bot.baseUrl)
 
     def think_thought(self, thought):
         self.vars['stimulus'] = thought.text
-        data = urllib.parse.urlencode(self.vars)
+        data = urlencode(self.vars)
         data_to_digest = data[9:self.bot.endIndex]
         data_digest = hashlib.md5(data_to_digest.encode('utf-8')).hexdigest()
         data = data + '&icognocheck=' + data_digest
-        url_response = self.opener.open(self.bot.serviceUrl, data.encode('ascii'))
+        url_response = self.opener.open(self.bot.serviceUrl, data.encode('utf-8'))
         response = str(url_response.read())
-        response_values = response.split('\\r')
+        response_values = re.split(r'\\r|\r', response)
         #self.vars['??'] = _utils_string_at_index(response_values, 0)
         self.vars['sessionid'] = _utils_string_at_index(response_values, 1)
         self.vars['logurl'] = _utils_string_at_index(response_values, 2)
@@ -311,8 +316,8 @@ class _PandorabotsSession(ChatterBotSession):
 
     def think_thought(self, thought):
         self.vars['input'] = thought.text
-        data = urllib.parse.urlencde(self.vars)
-        url_response = urllib.request.urlopen('http://www.pandorabots.com/pandora/talk-xml', data)
+        data = urlencode(self.vars)
+        url_response = urlopen('http://www.pandorabots.com/pandora/talk-xml', data)
         response = url_response.read()
         response_dom = xml.dom.minidom.parseString(response)
         response_thought = ChatterBotThought()
