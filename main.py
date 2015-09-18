@@ -7,6 +7,7 @@ from logging.config import dictConfig
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 
 import telegram
+from telegram.error import TelegramError
 
 from utils.chatter_bot_api import ChatterBotFactory
 from conf.log_conf import LOG_CONF
@@ -17,7 +18,14 @@ logger = logging.getLogger(__name__)
 
 def get_updates(bot, update_id):
     last_update_id = 0
-    updates = bot.getUpdates(offset=update_id)
+    if update_id:
+        last_update_id = update_id
+    try:
+        updates = bot.getUpdates(offset=update_id, timeout=2)
+    except TelegramError:
+        logging.exception('Could not get updates')
+        return [], update_id
+
     if updates:
         last_update_id = updates[-1].update_id
 
@@ -30,7 +38,7 @@ def get_updates(bot, update_id):
                 update.message.text = re.sub(bot_address.lower(), '', text.lower(), re.IGNORECASE)
                 return update, update.update_id + 1
 
-    return [], last_update_id + 1
+    return [], last_update_id
 
 
 def process_messages(bot):
