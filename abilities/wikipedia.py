@@ -10,7 +10,9 @@ class Wikipedia(AbilityBase):
 
     @command(co(['wiki'], 'Search wikipedia'),)
     def get_wiki_page(self, request, command=None):
-        self.reply('give me a sec to find it')
+        if not request:
+            self.reply('wiki what?')
+            return
         try:
             wiki_res = wikipedia.page(request)
             self.reply('{}... \n\n  Link: {}'.format(wiki_res.summary[:wiki_res.summary.find('\n', 500)], wiki_res.url))
