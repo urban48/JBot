@@ -10,8 +10,8 @@ with open('conf/tokens.txt', 'r') as f:
 TELEGRAM_TOKEN = token[1]
 
 SLEEP_BETWEEN_REQUESTS = 1  # seconds
-SLEEP_BETWEEN_UPDATES = 1  # seconds
-SLEEP_BETWEEN_EXCEPTIONS = 600  # seconds
+SLEEP_BETWEEN_UPDATES = 1.5  # seconds
+SLEEP_BETWEEN_EXCEPTIONS = 60  # seconds
 
 
 BOT_ADDRESS_SET = {'^j ', '^yo j ', '^jj ', '^jb ', }
