@@ -1,6 +1,6 @@
 JBot
 ----
-Telegram Bot that dose everything!
+Telegram Bot that does everything!
 
 It's a plug-in powered bot, each plug-in give him a new ability.
 
