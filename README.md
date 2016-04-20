@@ -2,6 +2,19 @@ JBot
 ----
 Telegram Bot that dose everything!
 
+It's a plug-in powered bot, each plug-in give him a new ability.
+
+current abilities
+-----------------
+flow - Set the flow (MOD, future plans, etc..)  
+jokes - tell jokes when asked.  
+urbandictionary - search for terms in urbandictionary.  
+wikipedia - search for terms in wikipedia.  
+wolfram - use wolfram for any question you got.  
+
+bonuse ability
+--------------
+natural Sri like talk (based on CLEVERBOT)
 
 features:
 ---------
