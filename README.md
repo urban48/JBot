@@ -52,6 +52,21 @@ Basic setup and installation:
 bot usage:
 ----------
 
+     j help  
+
+
+     here's what I can do:
+     
+     Privilege check, commands: ["who's your daddy", "who's your mommy"]
+     Show help, commands: ['help']
+     Search wikipedia, commands: ['wiki']
+     Show the flow, commands: ['whats the flow', "what's the flow", 'what is the flow']
+     Set the flow, commands: ['set flow', 'set the flow']
+     Tell a joke, commands: ['tell me a joke', 'humor me', 'tell me a better joke']
+     Tries to find the answer, commands: ?
+     Define words using Urbandictionary, commands: ['define']
+
+
 The bot will only answer when addressed with one of the words that are contained in BOT_ADDRESS_SET
 for example:  
 
@@ -59,7 +74,7 @@ for example:
 
 after the bot address, a command should follow:
 
-        yo j wiki robots
+        j wiki robots
 
 the commands are registered through each ability, see abilities dir for examples.
 
