@@ -1,4 +1,4 @@
-from abilities.wikipedia import Wikipedia
+from abilities.wiki import Wikipedia
 from abilities.flow import Flow
 from abilities.jokes import Jokes
 from abilities.general import General

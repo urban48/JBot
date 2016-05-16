@@ -12,6 +12,7 @@ class Wolfram(AbilityBase):
     def ask(self, request, command=None):
         client = wolframalpha.Client(app_id='EQGUQ9-EH8T86J5PK')
         try:
+            self.reply('let me think...')
             res = client.query(request)
             self.reply(next(res.results).text)
         except Exception:
