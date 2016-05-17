@@ -80,8 +80,11 @@ def process_messages(bot):
                             continue
                         break
                 if not ability_executed:
-                    answer = bot.chatter.think(message)
-                    bot.sendMessage(chat_id=update.message.chat_id, text=answer)
+                    try:
+                        answer = bot.chatter.think(message)
+                        bot.sendMessage(chat_id=update.message.chat_id, text=answer)
+                    except Exception as e:
+                        logger.debug("chatter bot error: {}".format(e))
 
             sleep(cfg.SLEEP_BETWEEN_UPDATES)
 
